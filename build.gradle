@@ -1,33 +1,69 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.4'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'maven-publish'
 }
 
 group = 'com.lucasaxm'
-version = '0.0.1-SNAPSHOT'
-
-java {
-    sourceCompatibility = '21'
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
+version = '0.0.1'
+sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
+    // Lombok for getter/setter boilerplate
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Spring dependencies needed for compilation
+    compileOnly 'org.springframework.boot:spring-boot-autoconfigure'
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+    compileOnly 'org.springframework:spring-core'
+    compileOnly 'org.springframework:spring-context'
+    // Add any additional dependencies you need for development only
+
+    // Testing framework (optional)
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+// If using the spring BOM to manage dependency versions
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:2.5.6"
+    }
+}
+
+// Ensure the consumers of the library can run their annotation processors, such as Lombok
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+// Add tasks for source and Javadoc JARs
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+
+// Define Maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java // Main binary artifact
+
+            // Additional artifacts
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    // Add repository configuration if needed
 }
