@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.lucasaxm'
-version = '0.0.1'
+version = '0.0.2'
 sourceCompatibility = '17'
 
 repositories {
@@ -18,12 +18,13 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     // Spring dependencies needed for compilation
-    compileOnly 'org.springframework.boot:spring-boot-autoconfigure'
-    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+    compileOnly 'org.springframework.boot:spring-boot-autoconfigure:3.2.3'
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor:3.2.3'
     compileOnly 'org.springframework:spring-core'
     compileOnly 'org.springframework:spring-context'
     // Add any additional dependencies you need for development only
-
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.4'
+    compileOnly 'org.slf4j:slf4j-api:2.0.6'
     // Testing framework (optional)
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
@@ -32,7 +33,7 @@ dependencies {
 // If using the spring BOM to manage dependency versions
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:2.5.6"
+        mavenBom "org.springframework.boot:spring-boot-dependencies:3.2.3"
     }
 }
 
@@ -64,6 +65,9 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
         }
+    }
+    repositories {
+        mavenLocal()
     }
     // Add repository configuration if needed
 }
