@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.lucasaxm.gallerydl.config.GalleryDlAutoConfiguration
+com.github.lucasaxm.gallerydl.config.GalleryDlAutoConfiguration
