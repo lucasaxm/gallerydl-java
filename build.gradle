@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.github.lucasaxm'
-version = '0.0.2'
+version = '0.0.3'
 sourceCompatibility = '17'
 targetCompatibility = '17'
 
@@ -18,9 +18,6 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // Spring dependencies needed for compilation
-    compileOnly 'org.springframework.boot:spring-boot-autoconfigure:3.2.3'
-    compileOnly 'org.springframework.boot:spring-boot-configuration-processor:3.2.3'
     compileOnly 'org.springframework:spring-core'
     compileOnly 'org.springframework:spring-context'
     // Add any additional dependencies you need for development only
