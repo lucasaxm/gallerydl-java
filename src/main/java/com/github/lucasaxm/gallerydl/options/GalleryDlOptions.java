@@ -99,76 +99,97 @@ public class GalleryDlOptions {
 
     public List<String> toCommandList() {
         List<String> commandList = new ArrayList<>();
-        if (filenameFormat != null) commandList.add("--filename");
-        if (destination != null) commandList.add("--destination");
-        if (directory != null) commandList.add("--directory");
-        if (extractors != null) commandList.add("--extractors");
-        if (proxy != null) commandList.add("--proxy");
-        if (sourceAddress != null) commandList.add("--source-address");
-        if (userAgent != null) commandList.add("--user-agent");
-        if (clearCache != null) commandList.add("--clear-cache");
-        if (inputFile != null) commandList.add("--input-file");
-        if (inputFileComment != null) commandList.add("--input-file-comment");
-        if (inputFileDelete != null) commandList.add("--input-file-delete");
-        if (Boolean.TRUE.equals(quiet)) commandList.add("--quiet");
-        if (Boolean.TRUE.equals(verbose)) commandList.add("--verbose");
-        if (Boolean.TRUE.equals(getUrls)) commandList.add("--get-urls");
-        if (Boolean.TRUE.equals(resolveUrls)) commandList.add("--resolve-urls");
-        if (Boolean.TRUE.equals(dumpJson)) commandList.add("--dump-json");
-        if (Boolean.TRUE.equals(simulate)) commandList.add("--simulate");
-        if (Boolean.TRUE.equals(extractorInfo)) commandList.add("--extractor-info");
-        if (Boolean.TRUE.equals(listKeywords)) commandList.add("--list-keywords");
-        if (errorFile != null) commandList.add("--error-file");
-        if (Boolean.TRUE.equals(listModules)) commandList.add("--list-modules");
-        if (Boolean.TRUE.equals(listExtractors)) commandList.add("--list-extractors");
-        if (writeLog != null) commandList.add("--write-log");
-        if (Boolean.TRUE.equals(writePages)) commandList.add("--write-pages");
-        if (limitRate != null) commandList.add("--limit-rate");
-        if (retries != null) commandList.add("--retries");
-        if (httpTimeout != null) commandList.add("--http-timeout");
-        if (sleep != null) commandList.add("--sleep");
-        if (sleepRequest != null) commandList.add("--sleep-request");
-        if (sleepExtractor != null) commandList.add("--sleep-extractor");
-        if (filesizeMin != null) commandList.add("--filesize-min");
-        if (filesizeMax != null) commandList.add("--filesize-max");
-        if (chunkSize != null) commandList.add("--chunk-size");
-        if (Boolean.TRUE.equals(noPart)) commandList.add("--no-part");
-        if (Boolean.TRUE.equals(noSkip)) commandList.add("--no-skip");
-        if (Boolean.TRUE.equals(noMtime)) commandList.add("--no-mtime");
-        if (Boolean.TRUE.equals(noDownload)) commandList.add("--no-download");
-        if (Boolean.TRUE.equals(noPostprocessors)) commandList.add("--no-postprocessors");
-        if (Boolean.TRUE.equals(noCheckCertificate)) commandList.add("--no-check-certificate");
-        if (option != null) commandList.add("--option");
-        if (config != null) commandList.add("--config");
-        if (configYaml != null) commandList.add("--config-yaml");
-        if (configToml != null) commandList.add("--config-toml");
-        if (Boolean.TRUE.equals(configCreate)) commandList.add("--config-create");
-        if (Boolean.TRUE.equals(configIgnore)) commandList.add("--config-ignore");
-        if (username != null) commandList.add("--username");
-        if (password != null) commandList.add("--password");
-        if (Boolean.TRUE.equals(netrc)) commandList.add("--netrc");
-        if (cookies != null) commandList.add("--cookies");
-        if (cookiesExport != null) commandList.add("--cookies-export");
-        if (cookiesFromBrowser != null) commandList.add("--cookies-from-browser");
-        if (downloadArchive != null) commandList.add("--download-archive");
-        if (abort != null) commandList.add("--abort");
-        if (terminate != null) commandList.add("--terminate");
-        if (range != null) commandList.add("--range");
-        if (chapterRange != null) commandList.add("--chapter-range");
-        if (filter != null) commandList.add("--filter");
-        if (chapterFilter != null) commandList.add("--chapter-filter");
-        if (postprocessor != null) commandList.add("--postprocessor");
-        if (postprocessorOption != null) commandList.add("--postprocessor-option");
-        if (Boolean.TRUE.equals(writeMetadata)) commandList.add("--write-metadata");
-        if (Boolean.TRUE.equals(writeInfoJson)) commandList.add("--write-info-json");
-        if (Boolean.TRUE.equals(writeTags)) commandList.add("--write-tags");
-        if (Boolean.TRUE.equals(zip)) commandList.add("--zip");
-        if (Boolean.TRUE.equals(cbz)) commandList.add("--cbz");
-        if (mtime != null) commandList.add("--mtime");
-        if (ugoira != null) commandList.add("--ugoira");
-        if (exec != null) commandList.add("--exec");
-        if (execAfter != null) commandList.add("--exec-after");
+        addNonNull(commandList, "--filename", filenameFormat);
+        addNonNull(commandList, "--destination", destination);
+        addNonNull(commandList, "--directory", directory);
+        addNonNull(commandList, "--extractors", extractors);
+        addNonNull(commandList, "--proxy", proxy);
+        addNonNull(commandList, "--source-address", sourceAddress);
+        addNonNull(commandList, "--user-agent", userAgent);
+        addNonNull(commandList, "--clear-cache", clearCache);
+
+        addNonNull(commandList, "--input-file", inputFile);
+        addNonNull(commandList, "--input-file-comment", inputFileComment);
+        addNonNull(commandList, "--input-file-delete", inputFileDelete);
+
+        addToggle(commandList, "--quiet", quiet);
+        addToggle(commandList, "--verbose", verbose);
+        addToggle(commandList, "--get-urls", getUrls);
+        addToggle(commandList, "--resolve-urls", resolveUrls);
+        addToggle(commandList, "--dump-json", dumpJson);
+        addToggle(commandList, "--simulate", simulate);
+        addToggle(commandList, "--extractor-info", extractorInfo);
+        addToggle(commandList, "--list-keywords", listKeywords);
+        addNonNull(commandList, "--error-file", errorFile);
+        addToggle(commandList, "--list-modules", listModules);
+        addToggle(commandList, "--list-extractors", listExtractors);
+        addNonNull(commandList, "--write-log", writeLog);
+        addToggle(commandList, "--write-pages", writePages);
+
+        addNonNull(commandList, "--limit-rate", limitRate);
+        addNonNull(commandList, "--retries", retries);
+        addNonNull(commandList, "--http-timeout", httpTimeout);
+        addNonNull(commandList, "--sleep", sleep);
+        addNonNull(commandList, "--sleep-request", sleepRequest);
+        addNonNull(commandList, "--sleep-extractor", sleepExtractor);
+        addNonNull(commandList, "--filesize-min", filesizeMin);
+        addNonNull(commandList, "--filesize-max", filesizeMax);
+        addNonNull(commandList, "--chunk-size", chunkSize);
+        addToggle(commandList, "--no-part", noPart);
+        addToggle(commandList, "--no-skip", noSkip);
+        addToggle(commandList, "--no-mtime", noMtime);
+        addToggle(commandList, "--no-download", noDownload);
+        addToggle(commandList, "--no-postprocessors", noPostprocessors);
+        addToggle(commandList, "--no-check-certificate", noCheckCertificate);
+
+        addNonNull(commandList, "--option", option);
+        addNonNull(commandList, "--config", config);
+        addNonNull(commandList, "--config-yaml", configYaml);
+        addNonNull(commandList, "--config-toml", configToml);
+        addToggle(commandList, "--config-create", configCreate);
+        addToggle(commandList, "--config-ignore", configIgnore);
+
+        addNonNull(commandList, "--username", username);
+        addNonNull(commandList, "--password", password);
+        addToggle(commandList, "--netrc", netrc);
+
+        addNonNull(commandList, "--cookies", cookies);
+        addNonNull(commandList, "--cookies-export", cookiesExport);
+        addNonNull(commandList, "--cookies-from-browser", cookiesFromBrowser);
+
+        addNonNull(commandList, "--download-archive", downloadArchive);
+        addNonNull(commandList, "--abort", abort);
+        addNonNull(commandList, "--terminate", terminate);
+        addNonNull(commandList, "--range", range);
+        addNonNull(commandList, "--chapter-range", chapterRange);
+        addNonNull(commandList, "--filter", filter);
+        addNonNull(commandList, "--chapter-filter", chapterFilter);
+
+        addNonNull(commandList, "--postprocessor", postprocessor);
+        addNonNull(commandList, "--postprocessor-option", postprocessorOption);
+        addToggle(commandList, "--write-metadata", writeMetadata);
+        addToggle(commandList, "--write-info-json", writeInfoJson);
+        addToggle(commandList, "--write-tags", writeTags);
+        addToggle(commandList, "--zip", zip);
+        addToggle(commandList, "--cbz", cbz);
+        addNonNull(commandList, "--mtime", mtime);
+        addNonNull(commandList, "--ugoira", ugoira);
+        addNonNull(commandList, "--exec", exec);
+        addNonNull(commandList, "--exec-after", execAfter);
 
         return commandList;
+    }
+
+    private void addNonNull(List<String> list, String command, Object value) {
+        if (value != null) {
+            list.add(command);
+            list.add(value.toString());
+        }
+    }
+
+    private void addToggle(List<String> list, String command, Boolean value) {
+        if (Boolean.TRUE.equals(value)) {
+            list.add(command);
+        }
     }
 }
