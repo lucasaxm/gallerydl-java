@@ -1,6 +1,7 @@
 package com.github.lucasaxm.gallerydl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.github.lucasaxm.gallerydl.exception.GalleryDlException;
 import com.github.lucasaxm.gallerydl.exception.GalleryDlNotFoundException;
 import com.github.lucasaxm.gallerydl.metadata.Metadata;
@@ -21,14 +22,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Slf4j
 public class GalleryDl {
 
-    private String galleryDlPath;
+    private final String galleryDlPath;
 
-    private ObjectMapper metadataMapper;
+    private final ObjectMapper metadataMapper;
+
+    public GalleryDl(String galleryDlPath) {
+        this.galleryDlPath = galleryDlPath;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+        metadataMapper = mapper;
+    }
 
     public GalleryDlResult download(String url, GalleryDlOptions options) {
         options.setWriteMetadata(true);
